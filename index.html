@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestra Historia de Amor</title>
-    <link rel="icon" type="image/png" href="imagenes/lineadeltiempo/logo.jpg">
-    <link rel="apple-touch-icon" href="imagenes/lineadeltiempo/logo.jpg">
+    <link rel="icon" type="image/png" href="./imagenes/lineadeltiempo/logo.jpg">
+    <link rel="apple-touch-icon" href="./imagenes/lineadeltiempo/logo.jpg">
     <!-- Fuentes elegantes -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -55,15 +55,15 @@
         .nota-actualizable { background-color: var(--color-fondo); border-left: 5px solid var(--color-secundario); padding: 20px; margin: 20px 0; text-align: left; border-radius: 5px; font-size: 0.95rem; line-height: 1.6; }
 
         .media-click { 
-    width: 100%; 
-    height: auto;
-    max-height: 350px; /* Evita que los videos verticales se hagan gigantes */
-    object-fit: cover; /* Centra y adapta el contenido sin aplastarlo */
-    border-radius: 5px; 
-    margin-top: 10px; 
-    cursor: pointer; 
-    transition: transform 0.2s; 
-}
+            width: 100%; 
+            height: auto;
+            max-height: 350px; 
+            object-fit: cover; 
+            border-radius: 5px; 
+            margin-top: 10px; 
+            cursor: pointer; 
+            transition: transform 0.2s; 
+        }
 
         /* CARRUSEL */
         .carrusel { position: relative; width: 100%; margin-top: 10px; border-radius: 10px; overflow: hidden; background: #000; }
@@ -75,24 +75,25 @@
 
         /* LIGHTBOX (PANTALLA COMPLETA) */
         #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 99999; justify-content: center; align-items: center; flex-direction: column; }
-#lightbox-media { 
-    max-width: 95vw; /* 95% del ancho de la pantalla */
-    max-height: 85vh; /* 85% del alto de la pantalla */
-    width: auto;
-    height: auto;
-    object-fit: contain; /* Muestra el video completo sin recortar nada */
-    border-radius: 10px; 
-    box-shadow: 0 5px 25px rgba(0,0,0,0.5); 
-}        .cerrar-lightbox { position: absolute; top: 20px; right: 25px; color: white; font-size: 40px; cursor: pointer; font-weight: bold; }
+        #lightbox-media { 
+            max-width: 95vw; 
+            max-height: 85vh; 
+            width: auto;
+            height: auto;
+            object-fit: contain; 
+            border-radius: 10px; 
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5); 
+        }        
+        .cerrar-lightbox { position: absolute; top: 20px; right: 25px; color: white; font-size: 40px; cursor: pointer; font-weight: bold; }
 
-        /* ÁLBUM FLOTANTE (ESTILO POLAROID O CUADRÍCULA) */
+        /* ÁLBUM FLOTANTE */
         #album-extra { margin-top: 50px; text-align: center; }
         .grid-album { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
         .foto-album { border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; }
         .foto-album img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
         .foto-album:hover img { transform: scale(1.1); }
 
-        /* REPRODUCTOR FLOTANTE SEGURO */
+        /* REPRODUCTOR FLOTANTE */
         .reproductor-flotante { position: fixed; top: auto; left: auto; bottom: 25px; right: 25px; background: linear-gradient(135deg, var(--color-principal), var(--color-secundario)); border-radius: 20px; padding: 15px 20px; box-shadow: 0 8px 25px rgba(0, 92, 191, 0.4); z-index: 10000; display: flex; flex-direction: column; align-items: center; gap: 10px; touch-action: none; user-select: none; cursor: move; }
         .info-cancion { color: white; font-size: 0.9rem; font-weight: 600; text-align: center; pointer-events: none; }
         .controles-musica { display: flex; gap: 15px; align-items: center; }
@@ -100,24 +101,12 @@
         
         footer { text-align: center; padding: 30px; color: #455a64; font-size: 0.85rem; }
 
-        /* TAMAÑO DE CARRUSEL EN NOTAS */
-        .nota-actualizable .carrusel {
-            max-width: 250px; 
-            margin: 15px auto 0 auto; 
-        }
+        .nota-actualizable .carrusel { max-width: 250px; margin: 15px auto 0 auto; }
 
-        /* RESPONSIVE MÓVIL */
+        /* RESPONSIVE MÓVIL CORREGIDO */
         @media screen and (max-width: 600px) {
-            header h1 { font-size: 2.2rem; 
-            @media screen and (max-width: 600px) {
-    /* ... lo que ya tenías aquí adentro, déjalo intacto ... */
-    
-    /* Agrega esto al final del bloque: */
-    #lightbox-media {
-        width: 100%; 
-        max-width: 100vw;
-    }
-}}
+            header h1 { font-size: 2.2rem; }
+            #lightbox-media { width: 100%; max-width: 100vw; }
             .timeline::after { left: 31px; }
             .momento { width: 100%; padding-left: 70px; padding-right: 25px; }
             .momento::after { left: 15px; }
@@ -134,7 +123,7 @@
     <header>
         <h1 class="fade-in">A & J</h1>
         <p class="fade-in">Este es nuestro espacio especial ❤️</p>
-        <img src="imagenes/lineadeltiempo/fotoinicio.jpeg" alt="Recuerdo" class="fade-in media-click" style="width: 100%; max-width: 400px; border-radius: 10px; margin-top: 15px;" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+        <img src="./imagenes/lineadeltiempo/fotoinicio.jpeg" alt="Recuerdo" class="fade-in media-click" style="width: 100%; max-width: 400px; border-radius: 10px; margin-top: 15px;" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
     </header>
 
     <div class="contenedor">
@@ -158,11 +147,6 @@
             <h2 class="fade-in">❤️Nuestra Historia❤️</h2>
             <div class="timeline">
 
-                <!-- COMO AÑADIR UN NUEVO MOMENTO:
-                Copia este bloque desde <div class="momento..."> hasta </div>
-                Recuerda alternar "izquierda" y "derecha" en la clase.
-                -->
-
                 <div class="momento izquierda fade-in">
                     <div class="contenido-momento">
                         <div class="fecha">18 de Mayo 2024</div>
@@ -184,7 +168,7 @@
                         <div class="fecha">8 de Junio 2024</div>
                         <h3>El dia que me invitaste a una fiesta familiar😬</h3>
                         <p>El dia que conoci a tu familia😬 luego de ir a dejarlos fuimos por nuestro elote con miche, recuerdo que me limpiabas el chilito a besos😅</p>
-                        <img src="imagenes/lineadeltiempo/foto1.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                        <img src="./imagenes/lineadeltiempo/foto1.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
                     </div>
                 </div>
 
@@ -193,7 +177,7 @@
                         <div class="fecha">13 de junio 2024</div>
                         <h3>La primera cancion que te dedique☺️</h3>
                         <p>Ese dia la verdad no recuerdo si te fui a ver pero recuerdo que estaba cantando y decidi grabar ese pedacito de cancion para ti 🫶</p>
-                        <video src="videos/video1.mp4" controls playsinline webkit-playsinline preload="metadata" style="width: 100%; height: auto;" class="media-click" onclick="abrirLightbox(this.src, 'video')"></video>
+                        <video src="./videos/video1.mp4" controls playsinline webkit-playsinline preload="metadata" style="width: 100%; height: auto;" class="media-click" onclick="abrirLightbox(this.src, 'video')"></video>
                     </div>
                 </div>
 
@@ -202,7 +186,7 @@
                         <div class="fecha">25 de Junio 2024</div>
                         <h3>Una de nuestras salidas</h3>
                         <p>El dia que fuimos a santin y compramos pizza, cafe, bombones, tostitos con su queso y si no mal recuerdo unas galletas, compramos tantas cosas que ni nos acabamos😅</p>
-                        <img src="imagenes/lineadeltiempo/foto2.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                        <img src="./imagenes/lineadeltiempo/foto2.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
                     </div>
                 </div>            
                 
@@ -211,7 +195,7 @@
                         <div class="fecha">4 de julio 2024</div>
                         <h3>Salimos al cine</h3>
                         <p>Ese dia fuimos a santin a ver la pelicula de gru</p>
-                        <img src="imagenes/lineadeltiempo/foto3.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                        <img src="./imagenes/lineadeltiempo/foto3.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
                     </div>
                 </div> 
 
@@ -220,7 +204,7 @@
                         <div class="fecha">19 de agosto 2024</div>
                         <h3>El comienzo de todo🥰</h3>
                         <p>Dias antes te hice una propuesta de noviazgo por video, cosa que no es lo correcto, llego un lunes que fui a verte, tu en la parte de enfrente y yo atras de la camioneta, yo todo nervioso haciendote la pregunta, recuerdo que me dijiste a ver como?, otra vez y pues te lo dije otra vez pero ahora un poco menos nervioso,y pues me dijiste que si😅 ese dia regrese muy feliz a casa☺️ </p>
-                        <img src="imagenes/lineadeltiempo/foto4.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                        <img src="./imagenes/lineadeltiempo/foto4.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
                     </div>
                 </div> 
 
@@ -229,7 +213,7 @@
                         <div class="fecha">17 de Diciembre 2024</div>
                         <h3>La primera vez que fuimos de compras</h3>
                         <p>Fuimos de compras por primera vez, jejej nos perdimos en liverpool😆hasta que dimos con el lugar que estabamos buscando, fuimos a comprar para los regalos de navidad, ese dia si no mal recuerdo te compre unas pantuflas y una pijama, te veias bien cute con tu pijama😘</p>
-                        <img src="imagenes/lineadeltiempo/foto6.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                        <img src="./imagenes/lineadeltiempo/foto6.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
                     </div>
                 </div>
 
@@ -246,7 +230,7 @@
                         <div class="fecha">31 de Diciembre 2024</div>
                         <h3>Nuestro primer fin de año juntos</h3>
                         <p>A pesar de que tuvimos un buen fin de año apesar de lo que paso ese dia con tu familia, la verdad me la pase muy bien, mas por que estaba contigo, jejeje recuerdo que ese dia me quede chismeando con tu mama😅 y bueno despues el primero nos fuimos a mi casa, no iniciamos de la mejor manera el año pero pues se arreglo un poco el tema😪</p>
-                        <img src="imagenes/lineadeltiempo/foto5.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                        <img src="./imagenes/lineadeltiempo/foto5.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
                     </div>
                 </div>
 
@@ -255,7 +239,7 @@
                         <div class="fecha">26 de Enero 2025</div>
                         <h3>La primera vez que nos escapamos a xona</h3>
                         <p>Jejeje como olvidar la primera vez que fuimos a ese lugar como adultos chiquitos🤭 todos pacientes esperandono nuestro turno😅</p>
-                        <img src="imagenes/lineadeltiempo/foto7.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                        <img src="./imagenes/lineadeltiempo/foto7.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
                     </div>
                 </div>
             
@@ -272,7 +256,7 @@
                         <div class="fecha">22 de Junio 2025</div>
                         <h3>Te meti a la zona vip😅</h3>
                         <p>Una de las tantas veces que te he metido a la zona vip (mi cuarto)😅 tu bien dormidita y yo tomandote fotos😊</p>
-                        <img src="imagenes/lineadeltiempo/foto8.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                        <img src="./imagenes/lineadeltiempo/foto8.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
                     </div>
                 </div>
             
@@ -281,7 +265,7 @@
                         <div class="fecha">09 de Agosto 2025</div>
                         <h3>El dia que fuimos a su salida de mi amigo</h3>
                         <p>Ese dia nos fuimos a comer taquitos😋 y pues conociste a uno de mis mejores amigos, ese dia siento yo que nos la pasamos bien, hubo malos momentos pero pues lo resolvivos, tanto que nos fuimos a dormir al hotel🤭 nosotros bien felices al otro dia 🤭</p>
-                        <img src="imagenes/lineadeltiempo/foto9.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                        <img src="./imagenes/lineadeltiempo/foto9.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
                     </div>
                 </div>
 
@@ -290,7 +274,7 @@
                         <div class="fecha">15 y 16 de Septiembre 2025</div>
                         <h3>Cuando fuimos al grito a la ciudad</h3>
                         <p>Jajaja como olvidar ese dia goldita, nos fuimos bien felices ese dia por que iriamos a dormir juntos sin mentirles a nuestros papas😅 y pues despues de eso fuimos bien felices al grito, nos fuimos al hotel y a dormir para el otro dia ir a chapultepec, que si nos cansamos pero nos la pasamos muy bien 😊</p>
-                        <video src="videos/video2.mp4" controls playsinline webkit-playsinline preload="metadata" style="width: 100%; height: auto;" class="media-click" onclick="abrirLightbox(this.src, 'video')"></video>
+                        <video src="./videos/video2.mp4" controls playsinline webkit-playsinline preload="metadata" style="width: 100%; height: auto;" class="media-click" onclick="abrirLightbox(this.src, 'video')"></video>
                     </div>
                 </div>
 
@@ -300,10 +284,9 @@
                         <h3>Fuimos a un concierto</h3>
                         <p>Si no mal recuerdo ese dia solo te dije que nos veriamos, nunca te dije a donde iriamos por que obviamente era una sorpresa, y pues bueno creo que despues de que viste que venia mi hermana y mi cuñado yo creo que ya te imaginabas a donde iriamos, me la pase muy bien a pesar de que no era alguien que me gustara, pero la verdad me la pase bien por que vi lo feliz que te la pasabas, jeje que bueno que nos colamos y alcanzamos buen lugar🤭 </p>
                         
-                        <!-- ESTO ES UN CARRUSEL DE MULTIPLES VIDEOS -->
                         <div class="carrusel" id="carrusel1">
-                            <div class="carrusel-slide activo"><video src="videos/video3.mp4" controls playsinline webkit-playsinline preload="metadata" style="width: 100%; height: auto;" class="media-click" onclick="abrirLightbox(this.src, 'video')"></video></div>
-                            <div class="carrusel-slide"><video src="videos/video4.mp4" controls playsinline webkit-playsinline preload="metadata" style="width: 100%; height: auto;" class="media-click" onclick="abrirLightbox(this.src, 'video')"></video></div>
+                            <div class="carrusel-slide activo"><video src="./videos/video3.mp4" controls playsinline webkit-playsinline preload="metadata" style="width: 100%; height: auto;" class="media-click" onclick="abrirLightbox(this.src, 'video')"></video></div>
+                            <div class="carrusel-slide"><video src="./videos/video4.mp4" controls playsinline webkit-playsinline preload="metadata" style="width: 100%; height: auto;" class="media-click" onclick="abrirLightbox(this.src, 'video')"></video></div>
                             <button class="btn-carrusel btn-prev" onclick="cambiarSlide('carrusel1', -1)">&#10094;</button>
                             <button class="btn-carrusel btn-next" onclick="cambiarSlide('carrusel1', 1)">&#10095;</button>
                         </div>
@@ -323,7 +306,7 @@
                         <div class="fecha">4 de diciembre 2025</div>
                         <h3>Cuando me acompañaste a la escuela</h3>
                         <p>El dia que fuimos a mi escuela y fui a hacer mi examen, si no mal recuerdo fue el dia que probaste las tortas de aca que te dije que estaban buenas y pues bueno ya viste que si lo estan, gracias por acompañarme 😘</p>
-                        <img src="imagenes/lineadeltiempo/foto13.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                        <img src="./imagenes/lineadeltiempo/foto13.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
                     </div>
                 </div>
 
@@ -349,9 +332,9 @@
                         <h3>Otra de nuestras escapadas</h3>
                         <p>Otra de las veces que nos escapamos, fuimos al cosmovitral donde tire monedas y creo que ninguna cayo en donde debia caer, ese dia la hice de tu camarografo, bueno de ahi fuimos al centro pero ahora no nos estafaron como en la ciudad😅 no tuvimos una buena noche por que te pusiste tus moños pero pues en la noche se arreglo todo🥰</p>
                     <div class="carrusel" id="carrusel3">
-                    <div class="carrusel-slide activo"><img src="imagenes/lineadeltiempo/foto14.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                    <div class="carrusel-slide"><img src="imagenes/lineadeltiempo/foto15.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                    <div class="carrusel-slide"><img src="imagenes/lineadeltiempo/foto16.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                    <div class="carrusel-slide activo"><img src="./imagenes/lineadeltiempo/foto14.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="./imagenes/lineadeltiempo/foto15.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="./imagenes/lineadeltiempo/foto16.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
                     <button class="btn-carrusel btn-prev" onclick="cambiarSlide('carrusel3', -1)">&#10094;</button>
                     <button class="btn-carrusel btn-next" onclick="cambiarSlide('carrusel3', 1)">&#10095;</button>
                 </div>
@@ -366,7 +349,7 @@
                     </div>
                 </div>  
 
-            </div> <!-- CIERRE LÍNEA DEL TIEMPO -->
+            </div> 
         </section>
 
         <!-- SECCIÓN DE NOTAS Y CARTITAS -->
@@ -374,7 +357,6 @@
             <h2>Cartitas para mi goldita</h2>
             <p style="color: #455a64;">Este espacio es solo nuestro y lo ire actualizando con el paso del tiempo</p>
             
-            <!-- INSTRUCCIONES PARA AÑADIR CARTITA: Copia un div de clase nota-actualizable -->
             <div class="nota-actualizable fade-in">
                 <strong>19 de Agosto 2024:</strong><br>
                 A pesar de que ya nos comportabamos como novios sin serlo, creeme que me sentia raro y te lo dije varias veces, mas por el aspecto de tocarte y pues no me gustaba hacerlo, pero gracias por darme ese permiso. Y pues solo me queda agradecerte por esos momentos que tuvimos antes de ser novios☺️😘
@@ -389,11 +371,10 @@
                 <strong>15 y 16 de Septiembre: 2025</strong><br>
                 Hay golda como olvidar ese dia que fuimos a ver al payasito que me gustaba ver en videos y luego de ahi en nuestro camino a ver el barrio chino nos estafaron con unas pulseras😢 lo que iba destinado para la pizza valio madres, pero bueno a pesar de ello llegamos bien al hotel y pudimos ver a la arrolladora.<br><br>En chapultepec nmms si nos cansamos, aunque bueno yo queria que conocieras y conociste, me quede con ganas de ver el panda gigante ese, pero no se veia bien el cabron.<br><br> Espero este año volver a repetirlo<br>
                 
-                <!-- ESTO ES UN CARRUSEL DE MULTIPLES IMAGENES -->
                 <div class="carrusel" id="carrusel2">
-                    <div class="carrusel-slide activo"><img src="imagenes/notas/foto10.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                    <div class="carrusel-slide"><img src="imagenes/notas/foto11.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                    <div class="carrusel-slide"><img src="imagenes/notas/foto12.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                    <div class="carrusel-slide activo"><img src="./imagenes/notas/foto10.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="./imagenes/notas/foto11.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="./imagenes/notas/foto12.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
                     <button class="btn-carrusel btn-prev" onclick="cambiarSlide('carrusel2', -1)">&#10094;</button>
                     <button class="btn-carrusel btn-next" onclick="cambiarSlide('carrusel2', 1)">&#10095;</button>
                 </div>
@@ -409,33 +390,30 @@
         <section id="album-extra" class="fade-in">
             <h2>Álbum de Recuerdos❤️❤️</h2>
             <div class="grid-album">
-                <!-- Puedes añadir más imágenes aquí -->
-                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos0.png" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos1.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos2.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos3.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-               <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos4.png" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos5.jpg" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos6.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos7.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos8.jpg" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos9.jpg" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos10.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos11.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
-
+                <div class="foto-album"><img src="./imagenes/recuerdos/fotorecuerdos0.png" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="./imagenes/recuerdos/fotorecuerdos1.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="./imagenes/recuerdos/fotorecuerdos2.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="./imagenes/recuerdos/fotorecuerdos3.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+               <div class="foto-album"><img src="./imagenes/recuerdos/fotorecuerdos4.png" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="./imagenes/recuerdos/fotorecuerdos5.jpg" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="./imagenes/recuerdos/fotorecuerdos6.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="./imagenes/recuerdos/fotorecuerdos7.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="./imagenes/recuerdos/fotorecuerdos8.jpg" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="./imagenes/recuerdos/fotorecuerdos9.jpg" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="./imagenes/recuerdos/fotorecuerdos10.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="./imagenes/recuerdos/fotorecuerdos11.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
             </div>
         </section>
 
-    </div> <!-- FIN CONTENEDOR PRINCIPAL -->
+    </div>
 
     <footer class="fade-in">
         Hecho con mucho amor de Josue para Alexia (mi goldita💖)
     </footer>
 
-    <!-- LIGHTBOX (Ventana de fotos/videos ampliada) -->
+    <!-- LIGHTBOX -->
     <div id="lightbox" onclick="cerrarLightbox()">
         <span class="cerrar-lightbox">&times;</span>
-        <!-- El JS inyectará aquí img o video -->
         <div id="lightbox-content"></div>
     </div>
 
@@ -450,7 +428,6 @@
         </div>
     </div>
 
-    <!-- SCRIPTS MÁGICOS -->
     <script>
         // 1. CONTADOR
         function actualizarContador() {
@@ -480,10 +457,10 @@
 
         // 2. MÚSICA
         const playlist = [
-            { titulo: "Regalo de dios", archivo: "musica/cancion.mp3" },
-            { titulo: "Suspiros", archivo: "musica/cancion2.mp3" },
-            { titulo: "Una mas para ti", archivo: "musica/cancion3.mp3" },
-            { titulo: "Labios de cereza", archivo: "musica/cancion4.mp3" }
+            { titulo: "Regalo de dios", archivo: "./musica/cancion.mp3" },
+            { titulo: "Suspiros", archivo: "./musica/cancion2.mp3" },
+            { titulo: "Una mas para ti", archivo: "./musica/cancion3.mp3" },
+            { titulo: "Labios de cereza", archivo: "./musica/cancion4.mp3" }
         ];
         let indiceActual = 0;
         const musica = document.getElementById('musicaFondo');
@@ -513,7 +490,7 @@
         }, { threshold: 0.15 });
         document.querySelectorAll('.fade-in').forEach(el => observador.observe(el));
 
-        // 4. LÓGICA DE CARRUSELES
+        // 4. CARRUSELES
         function cambiarSlide(idCarrusel, n) {
             let carrusel = document.getElementById(idCarrusel);
             let slides = carrusel.getElementsByClassName("carrusel-slide");
@@ -526,7 +503,7 @@
             slides[nuevoIndex].classList.add("activo");
         }
 
-        // 5. LIGHTBOX (PANTALLA COMPLETA)
+        // 5. LIGHTBOX
         const lightbox = document.getElementById('lightbox');
         const contentArea = document.getElementById('lightbox-content');
         function abrirLightbox(src, tipo) {
@@ -535,22 +512,21 @@
                 contentArea.innerHTML = `<img src="${src}" id="lightbox-media">`;
             } else {
                 contentArea.innerHTML = `<video src="${src}" id="lightbox-media" controls autoplay playsinline></video>`;
-                musica.pause(); // Pausa musica de fondo
+                musica.pause();
                 btnPlayPause.innerText = '▶️';
             }
         }
         function cerrarLightbox() {
             lightbox.style.display = 'none';
-            contentArea.innerHTML = ''; // Limpia el contenido para detener el video
+            contentArea.innerHTML = '';
         }
 
-        // 6. REPRODUCTOR ARRASTRABLE SEGURO (Móvil y Escritorio)
+        // 6. REPRODUCTOR ARRASTRABLE
         const repro = document.getElementById('reproductorDrag');
         let isDragging = false, startX, startY, initialX, initialY;
 
         function startDrag(e) {
             isDragging = true;
-            // Asegura que use top/left y no bottom/right para el drag
             let rect = repro.getBoundingClientRect();
             repro.style.bottom = 'auto';
             repro.style.right = 'auto';
@@ -565,7 +541,7 @@
 
         function doDrag(e) {
             if (!isDragging) return;
-            e.preventDefault(); // Evita scroll
+            e.preventDefault(); 
             let currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
             let currentY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
             
@@ -575,7 +551,6 @@
             let newX = initialX + dx;
             let newY = initialY + dy;
 
-            // LIMITES MATEMÁTICOS PARA QUE NO SE SALGA DE PANTALLA
             let maxRight = window.innerWidth - repro.offsetWidth;
             let maxBottom = window.innerHeight - repro.offsetHeight;
             
@@ -588,7 +563,6 @@
 
         function stopDrag() { isDragging = false; }
 
-        // Eventos táctiles y de ratón
         repro.addEventListener('mousedown', startDrag);
         window.addEventListener('mousemove', doDrag, { passive: false });
         window.addEventListener('mouseup', stopDrag);
