@@ -415,8 +415,8 @@
 
     <!-- LIGHTBOX -->
     <div id="lightbox" onclick="cerrarLightbox()">
-        <span class="cerrar-lightbox">&times;</span>
-        <div id="lightbox-content"></div>
+        <span class="cerrar-lightbox" onclick="cerrarLightbox()">&times;</span>
+        <div id="lightbox-content" onclick="event.stopPropagation()"></div>
     </div>
 
     <!-- REPRODUCTOR DE MÚSICA -->
@@ -511,9 +511,9 @@
         function abrirLightbox(src, tipo) {
             lightbox.style.display = 'flex';
             if (tipo === 'img') {
-                contentArea.innerHTML = `<img src="${src}" id="lightbox-media">`;
+                contentArea.innerHTML = `<img src="${src}" id="lightbox-media" onclick="event.stopPropagation()">`;
             } else {
-                contentArea.innerHTML = `<video src="${src}" id="lightbox-media" controls autoplay playsinline></video>`;
+                contentArea.innerHTML = `<video src="${src}" id="lightbox-media" controls autoplay playsinline onclick="event.stopPropagation()"></video>`;
                 musica.pause();
                 btnPlayPause.innerText = '▶️';
             }
