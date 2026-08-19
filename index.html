@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestros Primeros Dos Años Juntos</title>
+    <link rel="icon" type="image/png" href="imagenes/logo.jpg">
+    <link rel="apple-touch-icon" href="imagenes/logo.jpg">
+    <!-- Fuentes elegantes -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* PALETA AZUL */
+            --color-principal: #005cbf;
+            --color-secundario: #00b4d8;
+            --color-fondo: #f4f9f9;
+            --color-texto: #1d3557;
+        }
+
+        body { font-family: 'Poppins', sans-serif; background-color: var(--color-fondo); color: var(--color-texto); margin: 0; padding: 0; scroll-behavior: smooth; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--color-secundario); font-weight: 700; }
+        
+        header { background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-secundario) 100%); color: white; text-align: center; padding: 90px 20px; position: relative; }
+        header h1 { font-size: 3.2rem; margin: 0 0 10px 0; color: white; letter-spacing: 2px; }
+        header p { font-size: 1.1rem; font-weight: 300; opacity: 0.95; }
+        
+        .contenedor { max-width: 850px; margin: 0 auto; padding: 40px 20px; }
+
+        /* FADE-IN */
+        .fade-in { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* CONTADOR */
+        #contador { background-color: white; border-radius: 15px; padding: 30px; text-align: center; box-shadow: 0 10px 30px rgba(0, 92, 191, 0.1); margin-bottom: 50px; }
+        #contador h2 { margin-top: 0; font-size: 2.2rem; }
+        .tiempo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 15px; margin-top: 25px; }
+        .tiempo-item { background: rgba(0, 180, 216, 0.08); padding: 15px 10px; border-radius: 12px; border: 1px solid rgba(0, 180, 216, 0.15); }
+        .tiempo-numero { font-size: 2.2rem; font-weight: 700; color: var(--color-principal); font-family: 'Playfair Display', serif; }
+        .tiempo-label { font-size: 0.8rem; text-transform: uppercase; color: #455a64; letter-spacing: 1px; font-weight: 600; margin-top: 5px; }
+
+        /* LÍNEA DEL TIEMPO UNIFICADA */
+        #linea-tiempo h2 { text-align: center; margin-bottom: 40px; font-size: 2.4rem; }
+        .timeline { position: relative; max-width: 100%; margin: 0 auto; }
+        .timeline::after { content: ''; position: absolute; width: 4px; background-color: var(--color-principal); top: 0; bottom: 0; left: 50%; margin-left: -2px; border-radius: 2px; z-index: 0; }
+        .momento { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; box-sizing: border-box; z-index: 1; }
+        .momento::after { content: '💖'; position: absolute; width: 25px; height: 25px; right: -17px; background-color: white; border: 4px solid var(--color-principal); top: 15px; border-radius: 50%; z-index: 1; text-align: center; color: var(--color-principal); font-size: 13px; line-height: 25px; }
+        .izquierda { left: 0; } .derecha { left: 50%; } .derecha::after { left: -17px; }
+        .contenido-momento { padding: 20px 25px; background-color: white; position: relative; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .contenido-momento h3 { margin-top: 0; font-size: 1.4rem; }
+        .contenido-momento .fecha { font-size: 0.85rem; color: var(--color-principal); font-weight: 600; margin-bottom: 8px; }
+
+        /* NOTAS */
+        #seccion-notas { background-color: #fff; border-radius: 15px; padding: 40px 30px; margin-top: 50px; text-align: center; box-shadow: 0 10px 30px rgba(0, 92, 191, 0.1); }
+        #seccion-notas h2 { font-size: 2.4rem; margin-top: 0; }
+        .nota-actualizable { background-color: var(--color-fondo); border-left: 5px solid var(--color-secundario); padding: 20px; margin: 20px 0; text-align: left; border-radius: 5px; font-size: 0.95rem; line-height: 1.6; }
+
+        .media-click { 
+    width: 100%; 
+    height: auto;
+    max-height: 350px; /* Evita que los videos verticales se hagan gigantes */
+    object-fit: cover; /* Centra y adapta el contenido sin aplastarlo */
+    border-radius: 5px; 
+    margin-top: 10px; 
+    cursor: pointer; 
+    transition: transform 0.2s; 
+}
+
+        /* CARRUSEL */
+        .carrusel { position: relative; width: 100%; margin-top: 10px; border-radius: 10px; overflow: hidden; background: #000; }
+        .carrusel-slide { display: none; width: 100%; }
+        .carrusel-slide.activo { display: block; }
+        .carrusel-slide img, .carrusel-slide video { width: 100%; display: block; cursor: pointer; }
+        .btn-carrusel { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; font-size: 20px; padding: 10px; cursor: pointer; z-index: 10; border-radius: 50%; }
+        .btn-prev { left: 10px; } .btn-next { right: 10px; }
+
+        /* LIGHTBOX (PANTALLA COMPLETA) */
+        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 99999; justify-content: center; align-items: center; flex-direction: column; }
+#lightbox-media { 
+    max-width: 95vw; /* 95% del ancho de la pantalla */
+    max-height: 85vh; /* 85% del alto de la pantalla */
+    width: auto;
+    height: auto;
+    object-fit: contain; /* Muestra el video completo sin recortar nada */
+    border-radius: 10px; 
+    box-shadow: 0 5px 25px rgba(0,0,0,0.5); 
+}        .cerrar-lightbox { position: absolute; top: 20px; right: 25px; color: white; font-size: 40px; cursor: pointer; font-weight: bold; }
+
+        /* ÁLBUM FLOTANTE (ESTILO POLAROID O CUADRÍCULA) */
+        #album-extra { margin-top: 50px; text-align: center; }
+        .grid-album { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
+        .foto-album { border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; }
+        .foto-album img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+        .foto-album:hover img { transform: scale(1.1); }
+
+        /* REPRODUCTOR FLOTANTE SEGURO */
+        .reproductor-flotante { position: fixed; top: auto; left: auto; bottom: 25px; right: 25px; background: linear-gradient(135deg, var(--color-principal), var(--color-secundario)); border-radius: 20px; padding: 15px 20px; box-shadow: 0 8px 25px rgba(0, 92, 191, 0.4); z-index: 10000; display: flex; flex-direction: column; align-items: center; gap: 10px; touch-action: none; user-select: none; cursor: move; }
+        .info-cancion { color: white; font-size: 0.9rem; font-weight: 600; text-align: center; pointer-events: none; }
+        .controles-musica { display: flex; gap: 15px; align-items: center; }
+        .btn-control { background: rgba(255, 255, 255, 0.2); border: none; color: white; font-size: 1.2rem; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: all 0.2s; }
+        
+        footer { text-align: center; padding: 30px; color: #455a64; font-size: 0.85rem; }
+
+        /* TAMAÑO DE CARRUSEL EN NOTAS */
+        .nota-actualizable .carrusel {
+            max-width: 250px; 
+            margin: 15px auto 0 auto; 
+        }
+
+        /* RESPONSIVE MÓVIL */
+        @media screen and (max-width: 600px) {
+            header h1 { font-size: 2.2rem; 
+            @media screen and (max-width: 600px) {
+    /* ... lo que ya tenías aquí adentro, déjalo intacto ... */
+    
+    /* Agrega esto al final del bloque: */
+    #lightbox-media {
+        width: 100%; 
+        max-width: 100vw;
+    }
+}}
+            .timeline::after { left: 31px; }
+            .momento { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .momento::after { left: 15px; }
+            .derecha { left: 0%; }
+            .tiempo-grid { grid-template-columns: repeat(2, 1fr); }
+            .reproductor-flotante { padding: 10px 15px; }
+            .btn-control { width: 35px; height: 35px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABECERA -->
+    <header>
+        <h1 class="fade-in">A & J</h1>
+        <p class="fade-in">Este es nuestro espacio especial ❤️</p>
+        <img src="imagenes/lineadeltiempo/fotoinicio.jpeg" alt="Recuerdo" class="fade-in media-click" style="width: 100%; max-width: 400px; border-radius: 10px; margin-top: 15px;" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+    </header>
+
+    <div class="contenedor">
+        
+        <!-- CONTADOR -->
+        <section id="contador" class="fade-in">
+            <h2>Llevamos Juntos...</h2>
+            <div class="tiempo-grid">
+                <div class="tiempo-item"><div id="años" class="tiempo-numero">00</div><div class="tiempo-label">Años</div></div>
+                <div class="tiempo-item"><div id="meses" class="tiempo-numero">00</div><div class="tiempo-label">Meses</div></div>
+                <div class="tiempo-item"><div id="dias" class="tiempo-numero">00</div><div class="tiempo-label">Días</div></div>
+                <div class="tiempo-item"><div id="horas" class="tiempo-numero">00</div><div class="tiempo-label">Horas</div></div>
+                <div class="tiempo-item"><div id="minutos" class="tiempo-numero">00</div><div class="tiempo-label">Minutos</div></div>
+                <div class="tiempo-item"><div id="segundos" class="tiempo-numero">00</div><div class="tiempo-label">Segundos</div></div>
+            </div>
+            <p style="margin-top: 20px; color: #455a64; font-size: 0.9rem;">...y sumando mas segundos mi goldita💖</p>
+        </section>
+
+        <!-- LÍNEA DEL TIEMPO COMPLETA -->
+        <section id="linea-tiempo">
+            <h2 class="fade-in">❤️Nuestra Historia❤️</h2>
+            <div class="timeline">
+
+                <!-- COMO AÑADIR UN NUEVO MOMENTO:
+                Copia este bloque desde <div class="momento..."> hasta </div>
+                Recuerda alternar "izquierda" y "derecha" en la clase.
+                -->
+
+                <div class="momento izquierda fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">18 de Mayo 2024</div>
+                        <h3>El Dia que nos conocimos</h3>
+                        <p>La primera vez que interactuamos, llegaste de la nada al lugar que estaba, me hablaste, me serviste una cuba y luego me volviste a servir otra pero estaba la botella tapada 😅 y bueno ya luego bailamos, aunque te dije que no sabia, hice el intento 😅</p>
+                    </div>
+                </div>
+
+                <div class="momento derecha fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">25 de Mayo 2024</div>
+                        <h3>Nuestra primera salida</h3>
+                        <p>Recuerdo que ese dia fui por ti y tardaste un buen en salir que pensaba que ya no saldrias 🙃 pero bueno al final si fuimos a villa y luego fuimos con mi amigos a festejar el cumpleaños de una persona que ni siquiera estaba con nosotros 😂</p>
+                    </div>
+                </div>
+
+                <div class="momento izquierda fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">8 de Junio 2024</div>
+                        <h3>El dia que me invitaste a una fiesta familiar😬</h3>
+                        <p>El dia que conoci a tu familia😬 luego de ir a dejarlos fuimos por nuestro elote con miche, recuerdo que me limpiabas el chilito a besos😅</p>
+                        <img src="imagenes/lineadeltiempo/foto1.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="momento derecha fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">13 de junio 2024</div>
+                        <h3>La primera cancion que te dedique☺️</h3>
+                        <p>Ese dia la verdad no recuerdo si te fui a ver pero recuerdo que estaba cantando y decidi grabar ese pedacito de cancion para ti 🫶</p>
+                        <video src="videos/video1.mp4" class="media-click" onclick="abrirLightbox(this.src, 'video')" loading="lazy"></video>
+                    </div>
+                </div>
+
+                <div class="momento izquierda fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">25 de Junio 2024</div>
+                        <h3>Una de nuestras salidas</h3>
+                        <p>El dia que fuimos a santin y compramos pizza, cafe, bombones, tostitos con su queso y si no mal recuerdo unas galletas, compramos tantas cosas que ni nos acabamos😅</p>
+                        <img src="imagenes/lineadeltiempo/foto2.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                    </div>
+                </div>            
+                
+                <div class="momento derecha fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">4 de julio 2024</div>
+                        <h3>Salimos al cine</h3>
+                        <p>Ese dia fuimos a santin a ver la pelicula de gru</p>
+                        <img src="imagenes/lineadeltiempo/foto3.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                    </div>
+                </div> 
+
+                <div class="momento izquierda fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">19 de agosto 2024</div>
+                        <h3>El comienzo de todo🥰</h3>
+                        <p>Dias antes te hice una propuesta de noviazgo por video, cosa que no es lo correcto, llego un lunes que fui a verte, tu en la parte de enfrente y yo atras de la camioneta, yo todo nervioso haciendote la pregunta, recuerdo que me dijiste a ver como?, otra vez y pues te lo dije otra vez pero ahora un poco menos nervioso,y pues me dijiste que si😅 ese dia regrese muy feliz a casa☺️ </p>
+                        <img src="imagenes/lineadeltiempo/foto4.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                    </div>
+                </div> 
+
+                <div class="momento derecha fade-in"> 
+                    <div class="contenido-momento">
+                        <div class="fecha">17 de Diciembre 2024</div>
+                        <h3>La primera vez que fuimos de compras</h3>
+                        <p>Fuimos de compras por primera vez, jejej nos perdimos en liverpool😆hasta que dimos con el lugar que estabamos buscando, fuimos a comprar para los regalos de navidad, ese dia si no mal recuerdo te compre unas pantuflas y una pijama, te veias bien cute con tu pijama😘</p>
+                        <img src="imagenes/lineadeltiempo/foto6.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="momento izquierda fade-in"> 
+                    <div class="contenido-momento">
+                        <div class="fecha">24 de Diciembre 2024</div>
+                        <h3>Nuestra primera navidad juntos☺️</h3>
+                        <p>La neta pense que ese dia no te dejarian ir a mi casa, ese dia te vi en villa y yo todo sucio fui por ti y fuimos a comprar para hacer un ponche😅 llegamos a casa he hicimos el ponche 😅</p>
+                    </div>
+                </div>
+            
+                <div class="momento derecha fade-in"> 
+                    <div class="contenido-momento">
+                        <div class="fecha">31 de Diciembre 2024</div>
+                        <h3>Nuestro primer fin de año juntos</h3>
+                        <p>A pesar de que tuvimos un buen fin de año apesar de lo que paso ese dia con tu familia, la verdad me la pase muy bien, mas por que estaba contigo, jejeje recuerdo que ese dia me quede chismeando con tu mama😅 y bueno despues el primero nos fuimos a mi casa, no iniciamos de la mejor manera el año pero pues se arreglo un poco el tema😪</p>
+                        <img src="imagenes/lineadeltiempo/foto5.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="momento izquierda fade-in"> 
+                    <div class="contenido-momento">
+                        <div class="fecha">26 de Enero 2025</div>
+                        <h3>La primera vez que nos escapamos a xona</h3>
+                        <p>Jejeje como olvidar la primera vez que fuimos a ese lugar como adultos chiquitos🤭 todos pacientes esperandono nuestro turno😅</p>
+                        <img src="imagenes/lineadeltiempo/foto7.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                    </div>
+                </div>
+            
+                <div class="momento derecha fade-in"> 
+                    <div class="contenido-momento">
+                        <div class="fecha">19 de Abril de 2025</div>
+                        <h3>Cuando nos fuimos a chiconcuac</h3>
+                        <p>Si no mal recuerdo ese dia llegue en la madrugada algo tomado, me quede en tu casa parar irnos al otro dia temprano, nombre ni habia dormido🥺 pero bueno llegamos y me la pase bien que hasta se me olvido el sueño, conoci a mas de tu familia y pues otro lugar, aunque ese dia pasamos mucha calor y el wey del chofer se fue a dar una vueltota a quien sabe donde para hacer mas largo el viaje🙃 pero bueno en la noche ibamos bien felices todos atras 😅</p>
+                    </div>
+                </div>
+
+                <div class="momento izquierda fade-in"> 
+                    <div class="contenido-momento">
+                        <div class="fecha">22 de Junio 2025</div>
+                        <h3>Te meti a la zona vip😅</h3>
+                        <p>Una de las tantas veces que te he metido a la zona vip (mi cuarto)😅 tu bien dormidita y yo tomandote fotos😊</p>
+                        <img src="imagenes/lineadeltiempo/foto8.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                    </div>
+                </div>
+            
+                <div class="momento derecha fade-in"> 
+                    <div class="contenido-momento">
+                        <div class="fecha">09 de Agosto 2025</div>
+                        <h3>El dia que fuimos a su salida de mi amigo</h3>
+                        <p>Ese dia nos fuimos a comer taquitos😋 y pues conociste a uno de mis mejores amigos, ese dia siento yo que nos la pasamos bien, hubo malos momentos pero pues lo resolvivos, tanto que nos fuimos a dormir al hotel🤭 nosotros bien felices al otro dia 🤭</p>
+                        <img src="imagenes/lineadeltiempo/foto9.jpeg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="momento izquierda fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">15 y 16 de Septiembre 2025</div>
+                        <h3>Cuando fuimos al grito a la ciudad</h3>
+                        <p>Jajaja como olvidar ese dia goldita, nos fuimos bien felices ese dia por que iriamos a dormir juntos sin mentirles a nuestros papas😅 y pues despues de eso fuimos bien felices al grito, nos fuimos al hotel y a dormir para el otro dia ir a chapultepec, que si nos cansamos pero nos la pasamos muy bien 😊</p>
+                        <video src="videos/video2.mp4" class="media-click" onclick="abrirLightbox(this.src, 'video')" loading="lazy"></video>
+                    </div>
+                </div>
+
+                <div class="momento derecha fade-in"> 
+                    <div class="contenido-momento">
+                        <div class="fecha">17 de Octubre 2025</div>
+                        <h3>Fuimos a un concierto</h3>
+                        <p>Si no mal recuerdo ese dia solo te dije que nos veriamos, nunca te dije a donde iriamos por que obviamente era una sorpresa, y pues bueno creo que despues de que viste que venia mi hermana y mi cuñado yo creo que ya te imaginabas a donde iriamos, me la pase muy bien a pesar de que no era alguien que me gustara, pero la verdad me la pase bien por que vi lo feliz que te la pasabas, jeje que bueno que nos colamos y alcanzamos buen lugar🤭 </p>
+                        
+                        <!-- ESTO ES UN CARRUSEL DE MULTIPLES VIDEOS -->
+                        <div class="carrusel" id="carrusel1">
+                            <div class="carrusel-slide activo"><video src="videos/video3.mp4" class="media-click" onclick="abrirLightbox(this.src, 'video')" loading="lazy"></video></div>
+                            <div class="carrusel-slide"><video src="videos/video4.mp4" class="media-click" onclick="abrirLightbox(this.src, 'video')" loading="lazy"></video></div>
+                            <button class="btn-carrusel btn-prev" onclick="cambiarSlide('carrusel1', -1)">&#10094;</button>
+                            <button class="btn-carrusel btn-next" onclick="cambiarSlide('carrusel1', 1)">&#10095;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="momento izquierda fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">1 y 2 de Noviembre 2025</div>
+                        <h3>Pasamos dia de muertos juntos</h3>
+                        <p>Pues pasamos esos dias juntos, lo diferente fue que nos la pasamos trabajando, te deje en las flores y segun te deje con tavo en lo que yo trabajaba pero como vi que te dejo ya mejor me quede contigo, te terminaste quedando en mi casa por que mis papas no llegaban, al otro dia nosotros bien temprano peleandonos el lugar y tu bien dormida 😅 jejeje recuerdo como te norteaste cuando te preguntaron por algo pero ya luego como que te alivianaste, ese dia si terminamos bien cansados🥺 gracias por ayudarnos golda</p>
+                    </div>
+                </div>
+
+                <div class="momento derecha fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">4 de diciembre 2025</div>
+                        <h3>Cuando me acompañaste a la escuela</h3>
+                        <p>El dia que fuimos a mi escuela y fui a hacer mi examen, si no mal recuerdo fue el dia que probaste las tortas de aca que te dije que estaban buenas y pues bueno ya viste que si lo estan, gracias por acompañarme 😘</p>
+                        <img src="imagenes/lineadeltiempo/foto13.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="momento izquierda fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">24 de diciembre 2025</div>
+                        <h3>Nuestra segunda navidad juntos 🎅</h3>
+                        <p>Me creeras si te digo que no recuerdo mucho de esta navidad, solo recuerdo que venias vestida bien sexy🤤 creo que igual hicimos ponche, no recuerdo, recuerdo que fuimos a la iglesia y arrullamos a tu niño dios y luego cenamos y nos quedamos un rato ahi, bueno tambien recuerdo que abrimos regalos y ya 😅gracias por otra navidad a tu lado❤️ </p>
+                    </div>
+                </div>
+
+                <div class="momento derecha fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">31 de diciembre 2025</div>
+                        <h3>Nuestro segundo fin de año juntos</h3>
+                        <p>Jejeje ese dia llegue pedo 😅 pero llegue bien a cenar, la verdad no recuerdo tampoco mucho de eso por como iba, pero pues no paso tampoco mucho ese dia, nos corrieron de la casa de tu abuelita por que ya se iban a dormir🥺</p>
+                    </div>
+                </div>
+
+                <div class="momento izquierda fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">30 de Enero 2026</div>
+                        <h3>Otra de nuestras escapadas</h3>
+                        <p>Otra de las veces que nos escapamos, fuimos al cosmovitral donde tire monedas y creo que ninguna cayo en donde debia caer, ese dia la hice de tu camarografo, bueno de ahi fuimos al centro pero ahora no nos estafaron como en la ciudad😅 no tuvimos una buena noche por que te pusiste tus moños pero pues en la noche se arreglo todo🥰</p>
+                    <div class="carrusel" id="carrusel3">
+                    <div class="carrusel-slide activo"><img src="imagenes/lineadeltiempo/foto14.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="imagenes/lineadeltiempo/foto15.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="imagenes/lineadeltiempo/foto16.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                    <button class="btn-carrusel btn-prev" onclick="cambiarSlide('carrusel3', -1)">&#10094;</button>
+                    <button class="btn-carrusel btn-next" onclick="cambiarSlide('carrusel3', 1)">&#10095;</button>
+                </div>
+                    </div>
+                </div>
+
+                 <div class="momento derecha fade-in">
+                    <div class="contenido-momento">
+                        <div class="fecha">19 de Agosto 2026</div>
+                        <h3>Dos años siendo novios❤️</h3>
+                        <p>Pues dos años aguantandote, no se como te eh aguantado, pero aqui seguimos golda, vamos por mas años 😘</p>
+                    </div>
+                </div>  
+
+            </div> <!-- CIERRE LÍNEA DEL TIEMPO -->
+        </section>
+
+        <!-- SECCIÓN DE NOTAS Y CARTITAS -->
+        <section id="seccion-notas" class="fade-in">
+            <h2>Cartitas para mi goldita</h2>
+            <p style="color: #455a64;">Este espacio es solo nuestro y lo ire actualizando con el paso del tiempo</p>
+            
+            <!-- INSTRUCCIONES PARA AÑADIR CARTITA: Copia un div de clase nota-actualizable -->
+            <div class="nota-actualizable fade-in">
+                <strong>19 de Agosto 2024:</strong><br>
+                A pesar de que ya nos comportabamos como novios sin serlo, creeme que me sentia raro y te lo dije varias veces, mas por el aspecto de tocarte y pues no me gustaba hacerlo, pero gracias por darme ese permiso. Y pues solo me queda agradecerte por esos momentos que tuvimos antes de ser novios☺️😘
+            </div>
+
+            <div class="nota-actualizable fade-in">
+                <strong>30 de Junio y 1 de Julio 2025:</strong><br>
+                Jejeje como olvidar la primera vez que nos dimos nuestra escapada 😅 que segun fuimos a una cabaña con mis amigos y nostros bien tranquilos en el hotel 🤭 hay somos una cosa barbara 😅 despues de ese dia de ver pelis y comernos los sandwiches todos aplastados y despues de hacer nuestras cosas y bañarnos como 3 veces en una noche😅 fuimos a santin a las tragamonedas donde perdimos dinero🥺 pero bueno nos la pasamos bien, ya luego estabas capturando pokemons 
+            </div>
+
+            <div class="nota-actualizable fade-in">
+                <strong>15 y 16 de Septiembre: 2025</strong><br>
+                Hay golda como olvidar ese dia que fuimos a ver al payasito que me gustaba ver en videos y luego de ahi en nuestro camino a ver el barrio chino nos estafaron con unas pulseras😢 lo que iba destinado para la pizza valio madres, pero bueno a pesar de ello llegamos bien al hotel y pudimos ver a la arrolladora.<br><br>En chapultepec nmms si nos cansamos, aunque bueno yo queria que conocieras y conociste, me quede con ganas de ver el panda gigante ese, pero no se veia bien el cabron.<br><br> Espero este año volver a repetirlo<br>
+                
+                <!-- ESTO ES UN CARRUSEL DE MULTIPLES IMAGENES -->
+                <div class="carrusel" id="carrusel2">
+                    <div class="carrusel-slide activo"><img src="imagenes/notas/foto10.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="imagenes/notas/foto11.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="imagenes/notas/foto12.jpg" class="media-click" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                    <button class="btn-carrusel btn-prev" onclick="cambiarSlide('carrusel2', -1)">&#10094;</button>
+                    <button class="btn-carrusel btn-next" onclick="cambiarSlide('carrusel2', 1)">&#10095;</button>
+                </div>
+                <br><center>Pinche panda que no se dejo ver🙃</center>
+            </div>
+            <div class="nota-actualizable fade-in">
+                <strong>19 de Agosto de 2026:</strong><br>
+                Hoy cumplimos dos años siendo novios, no se como llegamos tan lejos, pero solo me queda agradecerte por todos los momentos y por aguantarme estos años😅, TE AMO MUCHO MI GOLDITA, hubiera querido poder estar hoy contigo pero pues no se pudo🥺, pero bueno solo me queda decirte, vamos por mas años 😘<br><br>Esto es algo de los momentos que hemos tenido, obviamente tenemos muchos mas, pero siento yo que son los mas importantes y los que no olvidaremos, en este espacio metere mas cosas con el tiempo, podras ingresar cuando quieras golda😘 
+                </div>
+        </section>
+
+        <!-- ALBUM FLOTANTE EXTRA -->
+        <section id="album-extra" class="fade-in">
+            <h2>Álbum de Recuerdos❤️❤️</h2>
+            <div class="grid-album">
+                <!-- Puedes añadir más imágenes aquí -->
+                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos0.png" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos1.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos2.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos3.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+               <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos4.png" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos5.jpg" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos6.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos7.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos8.jpg" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos9.jpg" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos10.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+                <div class="foto-album"><img src="imagenes/recuerdos/fotorecuerdos11.JPEG" onclick="abrirLightbox(this.src, 'img')" loading="lazy"></div>
+
+            </div>
+        </section>
+
+    </div> <!-- FIN CONTENEDOR PRINCIPAL -->
+
+    <footer class="fade-in">
+        Hecho con mucho amor de Josue para Alexia (mi goldita💖)
+    </footer>
+
+    <!-- LIGHTBOX (Ventana de fotos/videos ampliada) -->
+    <div id="lightbox" onclick="cerrarLightbox()">
+        <span class="cerrar-lightbox">&times;</span>
+        <!-- El JS inyectará aquí img o video -->
+        <div id="lightbox-content"></div>
+    </div>
+
+    <!-- REPRODUCTOR DE MÚSICA -->
+    <audio id="musicaFondo" loop></audio>
+    <div class="reproductor-flotante" id="reproductorDrag">
+        <div class="info-cancion"><span>🎶</span> <span id="textoMusica">Cargando música...</span></div>
+        <div class="controles-musica">
+            <button class="btn-control" onclick="cambiarCancion(-1)">⏮️</button>
+            <button class="btn-control" id="btnPlayPause" onclick="toggleMusica()">▶️</button>
+            <button class="btn-control" onclick="cambiarCancion(1)">⏭️</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS MÁGICOS -->
+    <script>
+        // 1. CONTADOR
+        function actualizarContador() {
+            const fechaInicio = new Date(2024, 7, 19, 0, 0, 0); 
+            const ahora = new Date();
+            let años = ahora.getFullYear() - fechaInicio.getFullYear();
+            let meses = ahora.getMonth() - fechaInicio.getMonth();
+            let dias = ahora.getDate() - fechaInicio.getDate();
+            let horas = ahora.getHours() - fechaInicio.getHours();
+            let minutos = ahora.getMinutes() - fechaInicio.getMinutes();
+            let segundos = ahora.getSeconds() - fechaInicio.getSeconds();
+
+            if (segundos < 0) { segundos += 60; minutos--; }
+            if (minutos < 0) { minutos += 60; horas--; }
+            if (horas < 0) { horas += 24; dias--; }
+            if (dias < 0) { meses--; dias += new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate(); }
+            if (meses < 0) { años--; meses += 12; }
+
+            document.getElementById('años').innerText = años.toString().padStart(2, '0');
+            document.getElementById('meses').innerText = meses.toString().padStart(2, '0');
+            document.getElementById('dias').innerText = dias.toString().padStart(2, '0');
+            document.getElementById('horas').innerText = horas.toString().padStart(2, '0');
+            document.getElementById('minutos').innerText = minutos.toString().padStart(2, '0');
+            document.getElementById('segundos').innerText = segundos.toString().padStart(2, '0');
+        }
+        setInterval(actualizarContador, 1000); actualizarContador();
+
+        // 2. MÚSICA
+        const playlist = [
+            { titulo: "Regalo de dios", archivo: "musica/cancion.mp3" },
+            { titulo: "Suspiros", archivo: "musica/cancion2.mp3" },
+            { titulo: "Una mas para ti", archivo: "musica/cancion3.mp3" },
+            { titulo: "Labios de cereza", archivo: "musica/cancion4.mp3" }
+        ];
+        let indiceActual = 0;
+        const musica = document.getElementById('musicaFondo');
+        const textoMusica = document.getElementById('textoMusica');
+        const btnPlayPause = document.getElementById('btnPlayPause');
+
+        musica.src = playlist[indiceActual].archivo;
+        textoMusica.innerText = playlist[indiceActual].titulo;
+
+        function toggleMusica() {
+            if (musica.paused) { musica.play(); btnPlayPause.innerText = '⏸️'; } 
+            else { musica.pause(); btnPlayPause.innerText = '▶️'; }
+        }
+
+        function cambiarCancion(dir) {
+            indiceActual += dir;
+            if (indiceActual >= playlist.length) indiceActual = 0;
+            else if (indiceActual < 0) indiceActual = playlist.length - 1;
+            musica.src = playlist[indiceActual].archivo;
+            textoMusica.innerText = playlist[indiceActual].titulo;
+            musica.play(); btnPlayPause.innerText = '⏸️';
+        }
+
+        // 3. FADE-IN ANIMACIÓN
+        const observador = new IntersectionObserver((entradas) => {
+            entradas.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.fade-in').forEach(el => observador.observe(el));
+
+        // 4. LÓGICA DE CARRUSELES
+        function cambiarSlide(idCarrusel, n) {
+            let carrusel = document.getElementById(idCarrusel);
+            let slides = carrusel.getElementsByClassName("carrusel-slide");
+            let indexActivo = Array.from(slides).findIndex(s => s.classList.contains("activo"));
+            slides[indexActivo].classList.remove("activo");
+            
+            let nuevoIndex = indexActivo + n;
+            if (nuevoIndex >= slides.length) nuevoIndex = 0;
+            if (nuevoIndex < 0) nuevoIndex = slides.length - 1;
+            slides[nuevoIndex].classList.add("activo");
+        }
+
+        // 5. LIGHTBOX (PANTALLA COMPLETA)
+        const lightbox = document.getElementById('lightbox');
+        const contentArea = document.getElementById('lightbox-content');
+        function abrirLightbox(src, tipo) {
+            lightbox.style.display = 'flex';
+            if (tipo === 'img') {
+                contentArea.innerHTML = `<img src="${src}" id="lightbox-media">`;
+            } else {
+                contentArea.innerHTML = `<video src="${src}" id="lightbox-media" controls autoplay playsinline></video>`;
+                musica.pause(); // Pausa musica de fondo
+                btnPlayPause.innerText = '▶️';
+            }
+        }
+        function cerrarLightbox() {
+            lightbox.style.display = 'none';
+            contentArea.innerHTML = ''; // Limpia el contenido para detener el video
+        }
+
+        // 6. REPRODUCTOR ARRASTRABLE SEGURO (Móvil y Escritorio)
+        const repro = document.getElementById('reproductorDrag');
+        let isDragging = false, startX, startY, initialX, initialY;
+
+        function startDrag(e) {
+            isDragging = true;
+            // Asegura que use top/left y no bottom/right para el drag
+            let rect = repro.getBoundingClientRect();
+            repro.style.bottom = 'auto';
+            repro.style.right = 'auto';
+            repro.style.left = rect.left + 'px';
+            repro.style.top = rect.top + 'px';
+
+            startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            initialX = repro.offsetLeft;
+            initialY = repro.offsetTop;
+        }
+
+        function doDrag(e) {
+            if (!isDragging) return;
+            e.preventDefault(); // Evita scroll
+            let currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            let currentY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            
+            let dx = currentX - startX;
+            let dy = currentY - startY;
+
+            let newX = initialX + dx;
+            let newY = initialY + dy;
+
+            // LIMITES MATEMÁTICOS PARA QUE NO SE SALGA DE PANTALLA
+            let maxRight = window.innerWidth - repro.offsetWidth;
+            let maxBottom = window.innerHeight - repro.offsetHeight;
+            
+            newX = Math.max(0, Math.min(newX, maxRight));
+            newY = Math.max(0, Math.min(newY, maxBottom));
+
+            repro.style.left = newX + "px";
+            repro.style.top = newY + "px";
+        }
+
+        function stopDrag() { isDragging = false; }
+
+        // Eventos táctiles y de ratón
+        repro.addEventListener('mousedown', startDrag);
+        window.addEventListener('mousemove', doDrag, { passive: false });
+        window.addEventListener('mouseup', stopDrag);
+
+        repro.addEventListener('touchstart', startDrag, { passive: false });
+        window.addEventListener('touchmove', doDrag, { passive: false });
+        window.addEventListener('touchend', stopDrag);
+
+    </script>
+</body>
+</html>
